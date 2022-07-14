@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom'
 import { Table, Button, Input, Space, } from 'antd';
+import Forms from '../Form/Forms';
 
 const View = (props) => {
 
     return (
+        
         <Link
             key={"myRoute"}
             to={`/FormDetails/${props.each.id}`}
@@ -15,7 +17,7 @@ const View = (props) => {
                 VIEW
             </Button>
         </Link>
-    );
+        );
 }
 
 export default View;

@@ -45,6 +45,9 @@ p.fs32 {
 }
 
 
+.ant-pagination{
+    padding-right: 20px;
+}
 html {
     min-height: 100vh;
     background-color: #F4F5F7 !important;
