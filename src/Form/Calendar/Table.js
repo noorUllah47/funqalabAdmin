@@ -52,7 +52,7 @@ const onChange = (pagination, filters, sorter, extra) => {
   console.log("params", pagination, filters, sorter, extra);
 };
 
-const PreviousAuctionTable = () => {
+const CTable = () => {
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef(null);
   const [searchText, setSearchText] = useState('');
@@ -200,7 +200,14 @@ const PreviousAuctionTable = () => {
   ...getColumnSearchProps( 'Cutt_off'),  },
     
     
+  {
+    title:"",
+    dataIndex:"",
+    width:1,
+
+    render:()=><DeleteModal/>
   
+  }
   ];
  return(
  <>
@@ -210,10 +217,7 @@ const PreviousAuctionTable = () => {
     dataSource={data}
     pagination={false}
     onChange={onChange}
-    scroll={{
-      x: 640,
-      y: 515,
-    }}
+    
   />
   
  
@@ -222,4 +226,4 @@ const PreviousAuctionTable = () => {
 )
 };
 
-export default PreviousAuctionTable;
+export default CTable;

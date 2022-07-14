@@ -16,7 +16,7 @@ const Navbar = () => {
               className="navbar-brand text-decoration-none"
               to="/Form"
             >
-              <img src={Logo} alt="" width="100%" height="40px" />
+              {/* <img src={Logo} alt="" width="100%" height="40px" /> */}
               {/* <span className="ms-3 mx-4 t-grey-400">Forms</span> */}
             </NavLink>
             {/* { JSON.parse(localStorage.getItem('super'))&&

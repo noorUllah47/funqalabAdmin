@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Dropdown, Menu, Modal, Space, Table } from "antd";
 import { useState } from "react";
-import vector from "../Assets/Img/Vector.png"
+import vector from "../../Assets/Img/Vector.png"
 function DeleteModal() {
   const [DeleteModal, setDeleteModal] = useState(false);
   const handleCloseClick = () => {
@@ -13,9 +13,9 @@ function DeleteModal() {
   const menu = (
     <Menu
       items={[
-        
+
         {
-          label: <p className="me-3 fw-600  pt-2 mb-1 fs25 bid_menu">Modify</p>,
+          label: <p className="me-3 ps-3 fw-600  pt-2 mb-1 fs25 bid_menu">Modify</p>,
           key: "1",
         },
         {
@@ -25,13 +25,13 @@ function DeleteModal() {
           label: (
             <p
               onClick={showModal}
-              className="me-5 fw-600 fs25 pt-2 mb-1 bid_menu"
+              className="me-4 fw-600 fs25 pt-2 mb-1 ps-4 bid_menu"
             >
               Delete
             </p>
           ),
           key: "3",
-          
+
 
         },
       ]}
@@ -60,7 +60,7 @@ function DeleteModal() {
               <div className="col">
                 <Button
                   key="submit"
-                  className="w-100 tc_orange deleteModal-btn"
+                  className="w-75 tc_orange deleteModal-btn"
                   type="primary "
                   onClick={handleCloseClick}
                 >
@@ -70,7 +70,7 @@ function DeleteModal() {
               <div className="col">
                 <Button
                   key="submit"
-                  type=" w-100 btn-outlined deleteModal-btn bg-light"
+                  type=" w-75 btn-outlined deleteModal-btn  me-5 bg-light"
                   onClick={handleCloseClick}
                 >
                   Cancel
@@ -82,7 +82,7 @@ function DeleteModal() {
       >
 
         <p className="fw-600 fs24 ms-auto text-center ">
-        Are you sure you want <br/>to delete this auction date?
+          Are you sure you want <br />to delete this auction date?
         </p>
       </Modal>
     </div>

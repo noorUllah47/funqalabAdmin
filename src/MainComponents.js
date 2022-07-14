@@ -6,8 +6,7 @@ import Login from "./Account/Login/Login";
 import ForgetPassword from "./Account/ForgetPassword";
 import ProtectedRoutes from "./ProtectedRoutes";
 import Member from "./SuperAdmin/Member";
-import { Calendar } from "antd";
-import AdminCalendar from "./Calendar/Calendar";
+import AdminCalendar from './Form/Calendar/Calendar'
 
 export default function MainComponents() {
   return (
@@ -20,7 +19,6 @@ export default function MainComponents() {
           <Route path="/Form" element={<Forms />} />
           <Route path="/FormDetails/:id" element={<FormDetails />} />
           <Route path="/Calendar" element={<AdminCalendar />} />
-
         </Route>
         <Route
           path="*"
