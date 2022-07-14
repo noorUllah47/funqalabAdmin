@@ -98,7 +98,7 @@ const Forms = () => {
             //   label: 'nav 3',
 
             // },
-            getItem('Export Csv', 'sub2', <ExportOutlined />, [getItem('IPS Users', '6'), getItem('Auction Calendar', '8')])
+            getItem('Export ', 'sub2', <ExportOutlined />, [getItem('IPS Users', '6'), getItem('Auction Calendar', '8')])
           ]}
         />
       </Sider>
