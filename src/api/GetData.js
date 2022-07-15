@@ -51,6 +51,20 @@ class GetData {
     return res();
   }
 
+  GetAllAuctions = () => {
+    const res = async () => {
+      const resp = await axios
+        .get(`auction/admin/get`)
+        .catch(function (error) {
+          console.log(error.response);
+        });
+      this.result = resp;
+      console.log("paginated ------------------data", resp);
+      return resp;
+    };
+    return res();
+  }
+
   FormSubmitted2 = () => {
     const res = async () => {
       const resp = await axios

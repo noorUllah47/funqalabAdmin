@@ -21,6 +21,76 @@ class Account {
     return res();
   }
 
+  CreateAuctionDates = (data) => {
+    const res = async () => {
+      const resp = await axios
+        .post('auction/create', {
+
+          instruments: data?.instrument,
+          auctionDate: data?.AuctionDate,
+          settlementDate: data?.settlementDate,
+          cutoffDate: data?.cuttOfDate
+
+
+        })
+        .catch(function (error) {
+          console.log(error.response);
+        });
+      this.result = resp;
+      return resp;
+    };
+    return res();
+  }
+
+  UpdateAuctionDates = (data) => {
+    console.log('data is=========', data)
+    const res = async () => {
+      const resp = await axios
+        .put('auction/update', {
+          _id: data?._id,
+          data: {
+            instruments: data?.instrument,
+            auctionDate: data?.AuctionDate,
+            settlementDate: data?.settlementDate,
+            cutoffDate: data?.cuttOfDate
+          }
+
+        })
+        .catch(function (error) {
+          console.log(error.response);
+        });
+      this.result = resp;
+      return resp;
+    };
+    return res();
+  }
+
+  DeleteAuctionDates = (data) => {
+    console.log('delete record id  is ========', data?._id)
+    var data1 = JSON.stringify({
+      "_id": data?._id
+    });
+    console.log('delete record id  is ========', data1)
+    const res = async () => {
+      const resp = await axios
+        .delete('auction/delete', {
+
+          data: {
+            _id: data?._id
+          }
+
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      this.result = resp;
+      console.log(resp);
+      return resp;
+    };
+    return res();
+
+  }
+
 
   GetImageDocuemnt = (img, func) => {
     console.log('imah ===?', img)

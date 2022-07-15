@@ -25,6 +25,8 @@ const Table = ({ Data }) => {
 
 
 
+
+
   const formData1 = Data
     .slice(start, end).map((each) => {
       return (

@@ -1,67 +1,100 @@
 import { SearchOutlined } from "@ant-design/icons";
 import { Button, Dropdown, Input, Menu, Modal, Space, Table } from "antd";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 // import Highlighter from "react-highlight-words";
 import DeleteModal from "./DeleteModal";
+import GetData from '../../api/GetData'
+import moment from 'moment-timezone';
 
 
 
+// const data = [
+//   {
+//     key: 1,
+//     Instrument_Type: "T-Bill",
+//     Auction_Date: "18-May-22",
+//     Cutt_off: "3:00 Pm",
+//     Settlement_Date: " 19-May-22",
+//   },
+//   {
+//     key: 2,
+//     Instrument_Type: "T-Bill",
+//     Auction_Date: "1-Jun-22",
+//     Cutt_off: "3:00 Pm",
+//     Settlement_Date: "2-Jun-22",
 
 
-const data = [
-  {
-    key: 1,
-    Instrument_Type: "T-Bill",
-    Auction_Date: "18-May-22",
-    Cutt_off: "3:00 Pm",
-    Settlement_Date: " 19-May-22",
-  },
-  {
-    key: 2,
-    Instrument_Type: "T-Bill",
-    Auction_Date: "1-Jun-22",
-    Cutt_off: "3:00 Pm",
-    Settlement_Date: "2-Jun-22",
+//   },
+//   {
+//     key: 3,
+
+//     Instrument_Type: "T-Bill",
+//     Auction_Date: "15-Jun-22",
+//     Cutt_off: "3:00 Pm",
+//     Settlement_Date: "16-Jun-22",
 
 
-  },
-  {
-    key: 3,
+//   },
+//   {
+//     key: 4,
 
-    Instrument_Type: "T-Bill",
-    Auction_Date: "15-Jun-22",
-    Cutt_off: "3:00 Pm",
-    Settlement_Date: "16-Jun-22",
+//     Instrument_Type: "T-Bill",
+//     Auction_Date: "29-Jun-22",
+//     Cutt_off: "3:00 Pm",
+//     Settlement_Date: " 30-Jun-22",
 
-  
-  },
-  {
-    key: 4,
 
-    Instrument_Type: "T-Bill",
-    Auction_Date: "29-Jun-22",
-    Cutt_off: "3:00 Pm",
-    Settlement_Date: " 30-Jun-22",
-  
+//   },
 
-  },
-  
-];
+// ];
 
 const onChange = (pagination, filters, sorter, extra) => {
   console.log("params", pagination, filters, sorter, extra);
 };
 
 const PreviousAuctionTable = () => {
+
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef(null);
   const [searchText, setSearchText] = useState('');
+  const [data, setData] = useState();
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
     setSearchText(selectedKeys[0]);
     setSearchedColumn(dataIndex);
   };
 
+
+  useEffect(() => {
+    // setLoading(true)
+
+    const res = GetData.GetAllAuctions()
+    res.then(value => {
+
+
+      let todayDate = moment().format('YYYY-MM-DD')
+
+      moment(todayDate).isAfter('2010-10-19');
+
+
+      let previousAuction = value?.data?.data?.filter(item => {
+        console.log('item are --------', item)
+        if (moment(todayDate).isSame(item?.auctionDate) || moment(todayDate).isAfter(item?.auctionDate)) {
+          return item
+        }
+
+      })
+
+
+      console.log("previousAuction ========>> <<<", previousAuction);
+
+      setData(previousAuction)
+
+    })
+      .catch(error => {
+        console.log(error.response)
+      })
+  }, []);
   const handleReset = (clearFilters) => {
     clearFilters();
     setSearchText('');
@@ -153,70 +186,76 @@ const PreviousAuctionTable = () => {
   });
   const columns = [
     {
-        title: "Instruments",
-        dataIndex: "Instrument_Type",
-        sorter: (a, b) => a.Instrument_Type.localeCompare(b.Instrument_Type),
-        // fixed: 'left',
-        width: 8,
-    ...getColumnSearchProps('Instrument_Type'),
-  
-      },
-    {
-      title: "Auction Date",
-      dataIndex: "Auction_Date",
-      width: 4,
-      filters: [
-        {
-          text: 'Joe',
-          value: 'Joe',
-        },
-        {
-          text: 'Jim',
-          value: 'Jim',
-        },],
-  ...getColumnSearchProps('Auction_Date'),
+      title: "Instruments",
+      dataIndex: "instruments",
+      sorter: (a, b) => a.instruments.localeCompare(b.instruments),
+      // fixed: 'left',
+      width: 8,
+      ...getColumnSearchProps('instruments'),
+
+
 
     },
-    
+    {
+      title: "Auction Date",
+      dataIndex: "auctionDate",
+      width: 4,
+      // filters: [
+      //   {
+      //     text: 'Joe',
+      //     value: 'Joe',
+      //   },
+      //   {
+      //     text: 'Jim',
+      //     value: 'Jim',
+      //   },],
+      ...getColumnSearchProps('auctionDate'),
+
+    },
+
     {
       title: "Settlmenet Date",
-      
-      dataIndex: "Settlement_Date",
+
+      dataIndex: "settlementDate",
       sorter: {
-        compare: (a, b) => new Date(a.Auction_Date) - new Date(b.Auction_Date),
+        compare: (a, b) => new Date(a.settlementDate) - new Date(b.settlementDate),
         // multiple: 3,
       },
       width: 4,
-  ...getColumnSearchProps('Auction_Date'),
+      ...getColumnSearchProps('settlementDate'),
 
-    
-  
+
+
     },
-    
+
     {
       title: "Cuttoff Time",
-      dataIndex: "Cutt_off",
-         width: 3,
-  ...getColumnSearchProps( 'Cutt_off'),  },
-    
-    
-  
-  ];
- return(
- <>
-  
-  <Table
-    columns={columns}
-    dataSource={data}
-    pagination={false}
-    onChange={onChange}
-    
-  />
-  
- 
+      dataIndex: "cutoffDate",
+      width: 3,
+      ...getColumnSearchProps('cutoffDate'),
+    },
 
-  </>
-)
+
+
+  ];
+  return (
+    <>
+
+      <Table
+        columns={columns}
+        dataSource={data}
+        pagination={false}
+        onChange={onChange}
+        // scroll={{
+        //   x: 640,
+        //   y: 515,
+        // }}
+      />
+
+
+
+    </>
+  )
 };
 
 export default PreviousAuctionTable;

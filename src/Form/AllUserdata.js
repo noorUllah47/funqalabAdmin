@@ -408,7 +408,7 @@ export default function Forms1() {
     return (
         <>
             {/* <Navbar /> */}
-            {/* <div className="d-flex justify-content-end m20">
+            <div className="d-flex justify-content-end m20">
                 <CSVLink
                     filename={"Customer_Table.csv"}
                     data={CSVData}
@@ -419,7 +419,7 @@ export default function Forms1() {
                 >
                     Export to CSV
                 </CSVLink>
-            </div> */}
+            </div>
             <div className="m20 infoform">
 
 

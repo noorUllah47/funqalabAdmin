@@ -2,16 +2,32 @@ import { DatePicker, Modal, Select, Button } from 'antd'
 import React, { useState } from 'react'
 import Navbar from '../../Atoms/Navbar'
 import PreviousAuctionTable from './PreviousAuctionTable'
+import Account from '../../api/Account'
 import CTable from './Table'
 
 function AdminCalendar() {
   const [visible, setVisible] = useState(false);
+  const [saveData, setSaveData] = useState([]);
   const showModal = () => {
     setVisible(true);
   };
-  const handleCancel = () => {
-    console.log('Clicked cancel button');
-    setVisible(false);
+
+
+  const handleAuctionDateSubmit = () => {
+
+
+
+    const res = Account.CreateAuctionDates(initialValues)
+    res.then((value) => {
+
+      setSaveData(value?.data?.data)
+
+      setVisible(false);
+    })
+      .catch((err) => {
+        console.log(err)
+      })
+
   };
   const { Option } = Select;
   const [initialValues, setInitialValues] = useState({
@@ -27,7 +43,7 @@ function AdminCalendar() {
     console.log(e, name)
     setInitialValues({ ...initialValues, [name]: e })
   }
-  console.log("stateeeeeeeeeeeee------", initialValues)
+
   return (
     <div>
 
@@ -38,7 +54,7 @@ function AdminCalendar() {
           <button className='btn btn-primary auction-btn' onClick={showModal}> Add Auction Dates</button>
         </div>
         <div>
-          <CTable
+          <CTable newSavedata={saveData}
           />
         </div>
         <div className='d-flex justify-content-between mt-5 mb-5   '>
@@ -54,7 +70,7 @@ function AdminCalendar() {
       <Modal
         title="Add Auction Dates"
         visible={visible}
-        onCancel={handleCancel}
+        onCancel={handleAuctionDateSubmit}
         centered
         footer={
           <>
@@ -64,7 +80,7 @@ function AdminCalendar() {
                   key="submit"
                   className="w-30 auction-btn  ms-2"
                   type="primary "
-                  onClick={handleCancel}
+                  onClick={handleAuctionDateSubmit}
                 >
                   Save Auction Date
                 </Button>
@@ -102,7 +118,8 @@ function AdminCalendar() {
               onChange={(date, dateString) => {
                 handleDrctChange(dateString, "AuctionDate");
               }}
-              format="DD-MM-YYYY"
+              format="YYYY-MM-DD"
+              // format="DD-MM-YYYY"
               className='w-100'
             // onChange={onChange} 
             />
@@ -120,7 +137,7 @@ function AdminCalendar() {
               onChange={(date, dateString) => {
                 handleDrctChange(dateString, "settlementDate");
               }}
-              format="DD-MM-YYYY"
+              format="YYYY-MM-DD"
               className='w-100'
             // onChange={onChange} 
             />

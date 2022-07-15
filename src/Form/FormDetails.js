@@ -13,7 +13,6 @@ import { Buffer } from 'buffer';
 import FilePreview from "../Atom/FilePreview";
 import UIDDocument from "../Atom/UIDDocument";
 import ZipPreview from "../Atom/ZipPreview";
-import Forms from "./Forms";
 const { Option, OptGroup, } = Select;
 export default function FormDetails(props) {
   let location = useLocation()
@@ -146,7 +145,7 @@ export default function FormDetails(props) {
 
   return (
     <>
-      {/* <Navbar /> */}
+      <Navbar />
       <div className=" infoformpage width_full pt-5 ">
         <div className=" mx-auto mb-4 py-0 infoform bg-white ">
           <div className="container p-3 minw100">
